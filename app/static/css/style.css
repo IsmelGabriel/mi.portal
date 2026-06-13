@@ -30,6 +30,43 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+.panel {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  padding: 10px;
+  gap: 10px;
+  width: auto;
+  height: auto;
+}
+
+.panel h3 {
+  width: auto;
+}
+
+/* Panel children */
+.panel-child {
+  background: rgba(222, 58, 58, 0.04);
+  border: 1px solid rgba(255, 0, 0, 0.1);
+  cursor: default;
+}
+
+.panel-child:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.panel-child h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.panel-child p {
+  margin-bottom: 0;
+  margin-top: 0.5rem;
+}
+
 /* Navbar */
 .navbar {
   display: flex;

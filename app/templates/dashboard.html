@@ -21,26 +21,38 @@
         <p><strong>Teléfono:</strong> {{ user.phone }}</p>
     </div>
 
-    <div class="card glass-panel">
-        <h3>Estado del Sistema</h3>
-        <p>Todos los servicios operando normalmente.</p>
-        <div style="margin-top: 1rem; color: var(--success-color); font-weight: 600;">
-            ● Conectado a PostgreSQL
-        </div>
-    </div>
-
-    <div class="card glass-panel">
-        <h3>Bot de Discord</h3>
-        <p><strong>Estado:</strong> <span id="bot-status" style="color: var(--text-muted);">Cargando...</span></p>
-        <p><strong>Último reinicio:</strong> <span id="bot-restart" style="color: var(--text-muted);">-</span></p>
-    </div>
-
     {% if role == 'admin' %}
     <div class="card glass-panel">
         <h3>Panel de Administración</h3>
         <p>Como administrador tienes acceso exclusivo para crear y gestionar otros usuarios del portal.</p>
     </div>
     {% endif %}
+
+    <div class="card panel">
+        <h3 style="margin-bottom: 1rem;">Estado de Servicios</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+
+            <!-- Tarjeta: Base de Datos -->
+            <div class="card panel-child">
+                <h4 style="margin-top: 0; margin-bottom: 0.5rem;">Base de Datos</h4>
+                <div style="color: var(--success-color); font-weight: 600;">
+                    ● Conectado a PostgreSQL
+                </div>
+            </div>
+
+            <!-- Tarjeta: Bot de Discord -->
+            <div class="card panel-child">
+                <h4><a href="https://ziotiki-bot.onrender.com"
+                        style="color: var(--text-color); text-decoration: none;">Bot de Discord</a></h4>
+                <p><strong>Estado:</strong> <span id="bot-status" style="color: var(--text-muted);">Cargando...</span>
+                </p>
+                <p><strong>Último reinicio:</strong> <span id="bot-restart" style="color: var(--text-muted);">-</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 {% endblock %}
 
@@ -48,7 +60,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
         try {
-            const response = await fetch('https://discord-bot-rh78.onrender.com/api/status');
+            const response = await fetch('https://ziotiki-bot.onrender.com/api/status');
             const data = await response.json();
 
             const statusEl = document.getElementById('bot-status');
@@ -66,7 +78,7 @@
             }
         } catch (error) {
             const statusEl = document.getElementById('bot-status');
-            statusEl.textContent = 'Error al conectar';
+            statusEl.textContent = 'No disponible';
             statusEl.style.color = 'var(--error-color)';
         }
     });
