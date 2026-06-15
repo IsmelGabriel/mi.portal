@@ -7,14 +7,17 @@
     <title>ZIO Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/icon.png') }}" type="image/x-icon">
 </head>
 
 <body>
     {% if request.path != '/login' %}
     <nav class="navbar glass-panel">
-        <a href="{{ url_for('frontend.dashboard') }}" class="navbar-brand">ZIO Portal</a>
+        <a href="{{ url_for('frontend.dashboard') }}" class="navbar-brand"><img
+                src="{{ url_for('static', filename='img/logo.svg') }}"><p>ZIO Portal</p></a>
         <div class="nav-links">
             <a href="{{ url_for('frontend.dashboard') }}">Panel</a>
+            <a href="{{ url_for('frontend.user_profile', user_id=user.id) }}">Mi Perfil</a>
             <a href="{{ url_for('frontend.logout') }}">Cerrar Sesión</a>
         </div>
     </nav>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, make_response
+from flask import Blueprint, render_template, redirect, url_for, make_response, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt, unset_jwt_cookies
 from app.models.user import User
 from app.models.role import Role
@@ -33,4 +33,19 @@ def logout():
 @require_role('admin')
 def create_user_view():
     roles = Role.query.all()
-    return render_template('create_user.html', roles=roles)
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    claims = get_jwt()
+    return render_template('create_user.html', roles=roles, user=user)
+
+@frontend_bp.route('/users/profile/<int:user_id>')
+@jwt_required()
+def user_profile(user_id):
+    user = User.query.get(user_id)
+    current_user_id = get_jwt_identity()
+    claims = get_jwt()
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+    if str(user_id) != str(current_user_id) and claims.get('role') != 'admin':
+        return jsonify({"msg": f"Access forbidden"}), 403
+    return render_template('user_profile.html', user=user)

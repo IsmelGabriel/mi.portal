@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card glass-morphism">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                {{ user.name[0] | upper }}
+            </div>
+            <h2>{{ user.name }}</h2>
+            <span class="badge">{{ user.role.name }}</span>
+        </div>
+
+        <div class="profile-body">
+            <div class="profile-info-group">
+                <span class="info-label">Documento</span>
+                <span class="info-value">{{ user.document_number }}</span>
+            </div>
+
+            <div class="profile-info-group">
+                <span class="info-label">Email</span>
+                <span class="info-value">{{ user.email }}</span>
+            </div>
+
+            <div class="profile-info-group">
+                <span class="info-label">Teléfono</span>
+                <span class="info-value">{{ user.phone or 'No registrado' }}</span>
+            </div>
+
+            <div class="profile-info-group">
+                <span class="info-label">Último Acceso</span>
+                <span class="info-value">
+                    {% if user.last_session %}
+                    {{ user.last_session.strftime('%Y-%m-%d %H:%M') }}
+                    {% else %}
+                    Nunca
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
